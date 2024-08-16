@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProviders";
+
 const Navbar = () => {
+  const { logOut } = useContext(AuthContext);
   return (
     <>
       <div>
@@ -72,7 +76,14 @@ const Navbar = () => {
               </ul>
             </div>
             <div className="navbar-end">
-              <a className="btn">Button</a>
+              <button
+                onClick={() => {
+                  logOut();
+                }}
+                className="btn btn-error"
+              >
+                Log Out
+              </button>
             </div>
           </div>
         </div>
