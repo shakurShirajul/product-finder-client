@@ -1,4 +1,5 @@
 import Aside from "../../../Components/Aside";
+import Footer from "../../../Components/Footer";
 import Navbar from "../../../Components/Navbar";
 import SearchBar from "../../../Components/SearchBar";
 import Products from "../Products/Products";
@@ -22,6 +23,9 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div>
+            <Footer/>
         </div>
       </div>
     </>
