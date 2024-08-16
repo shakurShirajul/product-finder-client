@@ -11,11 +11,11 @@ import {
 } from "firebase/auth";
 
 import auth from "../Firebase/firebase.config";
+import { toast } from 'react-toastify';
 
 export const AuthContext = createContext(null);
 
 const AuthProviders = ({ children }) => {
-
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,14 +32,13 @@ const AuthProviders = ({ children }) => {
   const googleSignIn = () => {
     setLoading(true);
     const googleProvider = new GoogleAuthProvider();
-    console.log('Here');
+    console.log("Here");
     return signInWithPopup(auth, googleProvider);
   };
 
-  const updateUser = (name, imageURL) => {
+  const updateUser = (name) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: imageURL,
     });
   };
 
@@ -58,6 +57,47 @@ const AuthProviders = ({ children }) => {
     };
   }, []);
 
+  // Toast Design
+
+  const updateToast = (toastMessage) => {
+    toast.info(toastMessage, {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const successToast = (toastMessage) => {
+    toast.success(toastMessage, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const errorToast = (toastMessage) => {
+    toast.error(toastMessage, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
   const authInfo = {
     user,
     setUser,
@@ -68,6 +108,9 @@ const AuthProviders = ({ children }) => {
     googleSignIn,
     updateUser,
     logOut,
+    updateToast,
+    successToast,
+    errorToast,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

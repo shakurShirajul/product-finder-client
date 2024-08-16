@@ -1,13 +1,34 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
-  const { googleSignIn } = useContext(AuthContext);
+  const { googleSignIn, login, successToast, errorToast } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const navigateToHomePage = () => {
+    setTimeout(() => {
+      navigate(location?.state ? location.state : "/");
+    });
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log("Shirajul");
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    console.log(email, password);
+
+    login(email, password)
+      .then((userCredential) => {
+        successToast("Login Successfull");
+        navigateToHomePage();
+      })
+      .catch((error) => {
+        errorToast("You have entered an invalid Email Or Password");
+      });
   };
 
   return (
@@ -59,7 +80,7 @@ const Login = () => {
                 aria-label="Log in with Google"
                 className="p-3 rounded-sm"
                 onClick={() => {
-                  googleSignIn()
+                  googleSignIn();
                 }}
               >
                 <svg
@@ -80,6 +101,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

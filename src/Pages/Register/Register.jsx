@@ -1,13 +1,49 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProviders";
+import { ToastContainer } from "react-toastify";
 
 const Register = () => {
+  const { register, updateUser, successToast, errorToast } =
+    useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const navigateToHomePage = () => {
+    setTimeout(() => {
+      navigate("/");
+      location.reload();
+    }, 2000);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    register(email, password).then((userCredential) => {
+      updateUser(name)
+        .then(() => {
+          successToast("Registration Successful");
+          event.target.reset();
+          navigateToHomePage();
+        })
+        .catch((error) => {
+          errorToast(error.message);
+        });
+    });
+
+    console.log(name, email, password);
+  };
   return (
     <>
       <div className="h-screen">
         <div className="flex justify-center items-center h-full">
           <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800 border">
             <h1 className="text-2xl font-bold text-start">Create an Account</h1>
-            <form noValidate="" action="" className="space-y-6">
+            <form className="space-y-6" onSubmit={handleFormSubmit}>
               <div className="space-y-1 text-sm">
                 <label htmlFor="name" className="block dark:text-gray-600">
                   Full Name
@@ -55,6 +91,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };
