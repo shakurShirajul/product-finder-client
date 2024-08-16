@@ -3,7 +3,11 @@ import { Outlet } from "react-router-dom";
 const Root = () => {
   return (
     <>
-      <Outlet />
+      <div className="bg-[#f2f4f8] font-roboto">
+        <div>
+          <Outlet />
+        </div>
+      </div>
     </>
   );
 };
