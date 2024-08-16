@@ -3,7 +3,7 @@ const Register = () => {
     <>
       <div className="flex justify-center items-center">
         <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800 border">
-          <h1 className="text-2xl font-bold text-center">Login</h1>
+          <h1 className="text-2xl font-bold text-center">Register</h1>
           <form noValidate="" action="" className="space-y-6">
             <div className="space-y-1 text-sm">
               <label htmlFor="username" className="block dark:text-gray-600">
