@@ -11,7 +11,7 @@ const Home = () => {
       <div>
         <Navbar />
         <div className="max-w-7xl mx-auto">
-          <div className="flex gap-5">
+          <div className="sm:space-x-5 flex gap-5">
             <div className="max-w-2xl">
               <Aside />
             </div>

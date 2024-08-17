@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Providers/AuthProviders";
+import { CiMenuBurger } from "react-icons/ci";
 
 const Aside = () => {
   const {
@@ -21,7 +22,7 @@ const Aside = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/products?brandChecked=${checkedBrand}&categoryChecked=${checkedCategory}&minPrice=${minValue}&maxPrice=${maxValue}&page=${currentPage}`
+        `https://server-side-seven-xi.vercel.app/products?brandChecked=${checkedBrand}&categoryChecked=${checkedCategory}&minPrice=${minValue}&maxPrice=${maxValue}&page=${currentPage}`
       )
       .then((response) => [
         queryClient.setQueryData(["products"], response.data),
@@ -54,9 +55,9 @@ const Aside = () => {
           <div className="drawer-content flex flex-col items-center justify-center">
             <label
               htmlFor="my-drawer-2"
-              className="btn text-white btn-primary  ml-3 drawer-button lg:hidden"
+              className="btn text-black ml-3 drawer-button lg:hidden"
             >
-              Open drawer
+              <CiMenuBurger />
             </label>
           </div>
           <div className="drawer-side h-full">
