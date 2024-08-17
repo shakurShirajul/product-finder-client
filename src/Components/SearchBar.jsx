@@ -7,12 +7,21 @@ const SearchBar = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const searchtText = event.target.search.value;
-    console.log(searchtText)
+    console.log(searchtText);
     const response = await axios.get(
       `http://localhost:5000/products?name=${searchtText}`
     );
     queryClient.setQueryData(["products"], response.data);
   };
+
+  const handleSelectFilter = async (event) => {
+    console.log(event.target.value);
+    const response = await axios.get(
+      `http://localhost:5000/products?filters=${event.target.value}`
+    );
+    queryClient.setQueryData(["products"], response.data);
+  };
+
   return (
     <>
       <div>
@@ -48,19 +57,16 @@ const SearchBar = () => {
             </form>
             <div>
               <label className="flex justify-center items-center">
-                <span>Sort By:</span>
-                <select className="select border">
-                  <option disabled selected>
-                    Default
+                <select
+                  onChange={handleSelectFilter}
+                  className="select focus:outline-none"
+                >
+                  <option disabled selected value="">
+                    Filters:
                   </option>
-                  <option>Java</option>
-                  <option>Go</option>
-                  <option>C</option>
-                  <option>C#</option>
-                  <option>C++</option>
-                  <option>Rust</option>
-                  <option>JavaScript</option>
-                  <option>Python</option>
+                  <option value="LowToHigh">Price Low to High</option>
+                  <option value="HighToLow">Price High to Low</option>
+                  <option value="NewFirst">Newest First</option>
                 </select>
               </label>
             </div>
