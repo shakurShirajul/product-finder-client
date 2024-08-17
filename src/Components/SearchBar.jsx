@@ -24,14 +24,14 @@ const SearchBar = () => {
 
   return (
     <>
-      <div>
+      <div className="">
         <div className="bg-white p-2 rounded-xl mb-2 drop-shadow-sm">
           <div className="flex gap-5 justify-end">
             <form onSubmit={handleFormSubmit} className="flex gap-2">
               <label className="border px-5 rounded-xl flex items-center gap-2">
                 <input
                   type="text"
-                  className="focus:outline-none"
+                  className="focus:outline-none w-5 md:w-full"
                   name="search"
                   placeholder="Search"
                 />
@@ -56,7 +56,7 @@ const SearchBar = () => {
               </button>
             </form>
             <div>
-              <label className="flex justify-center items-center">
+              <label className="flex justify-center items-center border rounded-xl">
                 <select
                   onChange={handleSelectFilter}
                   className="select focus:outline-none"

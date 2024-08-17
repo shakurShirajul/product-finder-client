@@ -11,13 +11,21 @@ import {
 } from "firebase/auth";
 
 import auth from "../Firebase/firebase.config";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const AuthContext = createContext(null);
 
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(9999);
+  const [checkedBrand, setCheckedBrand] = useState([]);
+  const [checkedCategory, setCheckedCategory] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const login = (email, password) => {
     setLoading(true);
@@ -32,7 +40,6 @@ const AuthProviders = ({ children }) => {
   const googleSignIn = () => {
     setLoading(true);
     const googleProvider = new GoogleAuthProvider();
-    console.log("Here");
     return signInWithPopup(auth, googleProvider);
   };
 
@@ -111,6 +118,16 @@ const AuthProviders = ({ children }) => {
     updateToast,
     successToast,
     errorToast,
+    minValue,
+    setMinValue,
+    maxValue,
+    setMaxValue,
+    checkedBrand,
+    setCheckedBrand,
+    checkedCategory,
+    setCheckedCategory,
+    currentPage,
+    setCurrentPage,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
