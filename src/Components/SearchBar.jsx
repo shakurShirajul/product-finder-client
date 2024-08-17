@@ -1,12 +1,31 @@
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+
 const SearchBar = () => {
+  const queryClient = useQueryClient();
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const searchtText = event.target.search.value;
+    console.log(searchtText)
+    const response = await axios.get(
+      `http://localhost:5000/products?name=${searchtText}`
+    );
+    queryClient.setQueryData(["products"], response.data);
+  };
   return (
     <>
       <div>
         <div className="bg-white p-2 rounded-xl mb-2 drop-shadow-sm">
           <div className="flex gap-5 justify-end">
-            <div className="flex gap-2">
+            <form onSubmit={handleFormSubmit} className="flex gap-2">
               <label className="border px-5 rounded-xl flex items-center gap-2">
-                <input type="text" className="focus:outline-none" placeholder="Search" />
+                <input
+                  type="text"
+                  className="focus:outline-none"
+                  name="search"
+                  placeholder="Search"
+                />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -20,8 +39,13 @@ const SearchBar = () => {
                   />
                 </svg>
               </label>
-              <button className="btn btn-primary text-white font-bold">SEARCH</button>
-            </div>
+              <button
+                type="submit"
+                className="btn btn-primary text-white font-bold"
+              >
+                SEARCH
+              </button>
+            </form>
             <div>
               <label className="flex justify-center items-center">
                 <span>Sort By:</span>
